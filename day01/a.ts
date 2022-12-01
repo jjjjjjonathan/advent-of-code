@@ -27,4 +27,8 @@ const foodTotaledElves = elves.map((elf) => addElfCalories(elf));
 
 const sortedElves = foodTotaledElves.sort((a, b) => b - a);
 
-console.log(sortedElves[0]);
+console.log('a: ', sortedElves[0]);
+
+// solution for second part below
+
+console.log('b: ', sortedElves[0] + sortedElves[1] + sortedElves[2]);
