@@ -28,4 +28,28 @@ rounds.forEach((round) => {
   ) points += 3;
 });
 
-console.log(points);
+console.log('a: ', points);
+
+// second part
+
+let realPoints = 0;
+
+rounds.forEach((round) => {
+  if (round[1] === 'Y') {
+    realPoints += 3;
+    if (round[0] === 'A') realPoints += 1;
+    if (round[0] === 'B') realPoints += 2;
+    if (round[0] === 'C') realPoints += 3;
+  } else if (round[1] === 'Z') {
+    realPoints += 6;
+    if (round[0] === 'A') realPoints += 2;
+    if (round[0] === 'B') realPoints += 3;
+    if (round[0] === 'C') realPoints += 1;
+  } else {
+    if (round[0] === 'A') realPoints += 3;
+    if (round[0] === 'B') realPoints += 1;
+    if (round[0] === 'C') realPoints += 2;
+  }
+});
+
+console.log('b: ', realPoints);
