@@ -1,7 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const data = fs.readFileSync(path.join(__dirname, 'input.txt'), { encoding: 'utf-8' });
+const data = fs.readFileSync(path.join(__dirname, 'input.txt'), {
+  encoding: 'utf-8',
+});
 
 const rounds = data.split('\n').map((round) => round.split(' '));
 
@@ -17,7 +19,8 @@ rounds.forEach((round) => {
     (round[0] === 'A' && round[1] === 'Y') ||
     (round[0] === 'B' && round[1] === 'Z') ||
     (round[0] === 'C' && round[1] === 'X')
-  ) points += 6;
+  )
+    points += 6;
 
   // draws
 
@@ -25,7 +28,8 @@ rounds.forEach((round) => {
     (round[0] === 'A' && round[1] === 'X') ||
     (round[0] === 'B' && round[1] === 'Y') ||
     (round[0] === 'C' && round[1] === 'Z')
-  ) points += 3;
+  )
+    points += 3;
 });
 
 console.log('a: ', points);
