@@ -20,3 +20,20 @@ pairedElves.forEach((pair) => {
 });
 
 console.log('a: ', count);
+
+// part 2
+
+let count2 = 0;
+
+pairedElves.forEach((pair) => {
+  const first = parseInt(pair[0][0]);
+  const second = parseInt(pair[0][1]);
+  const third = parseInt(pair[1][0]);
+  const fourth = parseInt(pair[1][1]);
+
+  if ((first >= third && first <= fourth) || (second >= third && second <= fourth) || (third >= first && third <= second) || (fourth >= first && fourth <= second)) {
+    count2++;
+  }
+});
+
+console.log('b: ', count2);
