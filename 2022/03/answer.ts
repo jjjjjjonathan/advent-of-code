@@ -1,11 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+import { parseInput } from '../../helpers';
 
-const inputData = fs.readFileSync(path.join(__dirname, 'input.txt'), {
-  encoding: 'utf-8',
-});
+const data = parseInput(__dirname);
 
-const rucksacks = inputData.split('\n');
+const rucksacks = data.split('\n');
 
 const organizedRucksacks = rucksacks.map((rucksack) => [
   rucksack.slice(0, Math.floor(rucksack.length / 2)),

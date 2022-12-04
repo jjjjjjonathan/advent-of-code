@@ -1,9 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+import { parseInput } from '../../helpers';
 
-const data = fs.readFileSync(path.join(__dirname, 'input.txt'), {
-  encoding: 'utf-8',
-});
+const data = parseInput(__dirname);
 
 const rounds = data.split('\n').map((round) => round.split(' '));
 

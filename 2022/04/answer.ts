@@ -1,11 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+import { parseInput } from '../../helpers';
 
-const inputData = fs.readFileSync(path.join(__dirname, 'input.txt'), {
-  encoding: 'utf-8',
-});
+const data = parseInput(__dirname);
 
-const splitData = inputData.split('\n');
+const splitData = data.split('\n');
 
 const pairedElves = splitData.map((data) =>
   data.split(',').map((data2) => data2.split('-'))
