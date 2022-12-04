@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+
 const FILE_NAME = 'input.txt';
 
-const readAndSplitData = (data) => {
+const readAndSplitData = (data: string) => {
   const dataRead = fs.readFileSync(path.join(__dirname, data), {
     encoding: 'utf-8',
   });
@@ -10,13 +11,15 @@ const readAndSplitData = (data) => {
   return dataRead.split('\n\n');
 };
 
-const addElfCalories = (elf) => {
-  const splitElfFood = elf.split('\n');
+const addElfCalories = (elf: string) => {
+  const splitElfFood: string[] = elf.split('\n');
 
-  const foodToNumbers = splitElfFood.map((calories) => parseInt(calories, 10));
+  const foodToNumbers = splitElfFood.map((calories: string): number =>
+    parseInt(calories, 10)
+  );
 
   return foodToNumbers.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
+    (accumulator: number, currentValue: number) => accumulator + currentValue,
     0
   );
 };
