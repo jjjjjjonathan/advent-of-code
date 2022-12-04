@@ -1,15 +1,15 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const inputData = fs.readFileSync(path.join(__dirname, 'input.txt'), {
-  encoding: 'utf-8'
+  encoding: 'utf-8',
 });
 
 const rucksacks = inputData.split('\n');
 
 const organizedRucksacks = rucksacks.map((rucksack) => [
   rucksack.slice(0, Math.floor(rucksack.length / 2)),
-  rucksack.slice(Math.floor(rucksack.length / 2))
+  rucksack.slice(Math.floor(rucksack.length / 2)),
 ]);
 
 const priorityValues = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
