@@ -12,15 +12,21 @@ export const pairElves = (data: string[]) => {
 
 const pairedElves = pairElves(organizedData);
 
+const getFirstDataset = (data: string[][][]): number[] => {
+  return [
+    parseInt(data[0][0][0]),
+    parseInt(data[0][0][1]),
+    parseInt(data[0][1][0]),
+    parseInt(data[0][1][1]),
+  ];
+};
+
 export const countFullContains = (
   data: string[][][],
   count: number
 ): number | undefined => {
   if (data.length > 0) {
-    const first = parseInt(data[0][0][0]);
-    const second = parseInt(data[0][0][1]);
-    const third = parseInt(data[0][1][0]);
-    const fourth = parseInt(data[0][1][1]);
+    const [first, second, third, fourth] = getFirstDataset(data);
 
     if (
       (first >= third && second <= fourth) ||
@@ -42,10 +48,7 @@ export const countOverlaps = (
   count: number
 ): number | undefined => {
   if (data.length > 0) {
-    const first = parseInt(data[0][0][0]);
-    const second = parseInt(data[0][0][1]);
-    const third = parseInt(data[0][1][0]);
-    const fourth = parseInt(data[0][1][1]);
+    const [first, second, third, fourth] = getFirstDataset(data);
 
     if (
       (first >= third && first <= fourth) ||
