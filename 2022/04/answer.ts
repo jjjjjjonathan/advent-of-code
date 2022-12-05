@@ -1,49 +1,63 @@
-import { parseInput } from '../../helpers';
+import { parseInput, splitData } from '../../helpers';
 
 const data = parseInput(__dirname, 'input.txt');
 
-const splitData = data.split('\n');
+const organizedData = splitData(data, 1);
 
-const pairedElves = splitData.map((data) =>
-  data.split(',').map((data2) => data2.split('-'))
-);
+export const pairElves = (data: string[]) => {
+  return data.map((pair) =>
+    pair.split(',').map((floorRange) => floorRange.split('-'))
+  );
+};
 
-let count = 0;
+const pairedElves = pairElves(organizedData);
 
-pairedElves.forEach((pair) => {
-  if (
-    parseInt(pair[0][0]) >= parseInt(pair[1][0]) &&
-    parseInt(pair[0][1]) <= parseInt(pair[1][1])
-  ) {
-    count++;
-  } else if (
-    parseInt(pair[1][0]) >= parseInt(pair[0][0]) &&
-    parseInt(pair[1][1]) <= parseInt(pair[0][1])
-  ) {
-    count++;
+export const countFullContains = (
+  data: string[][][],
+  count: number
+): number | undefined => {
+  if (data.length > 0) {
+    const first = parseInt(data[0][0][0]);
+    const second = parseInt(data[0][0][1]);
+    const third = parseInt(data[0][1][0]);
+    const fourth = parseInt(data[0][1][1]);
+
+    if (
+      (first >= third && second <= fourth) ||
+      (third >= first && fourth <= second)
+    ) {
+      count++;
+    }
+    return countFullContains(data.slice(1), count);
   }
-});
+  return count;
+};
 
-console.log('a: ', count);
+console.log('a: ', countFullContains(pairedElves, 0));
 
 // part 2
 
-let count2 = 0;
+export const countOverlaps = (
+  data: string[][][],
+  count: number
+): number | undefined => {
+  if (data.length > 0) {
+    const first = parseInt(data[0][0][0]);
+    const second = parseInt(data[0][0][1]);
+    const third = parseInt(data[0][1][0]);
+    const fourth = parseInt(data[0][1][1]);
 
-pairedElves.forEach((pair) => {
-  const first = parseInt(pair[0][0]);
-  const second = parseInt(pair[0][1]);
-  const third = parseInt(pair[1][0]);
-  const fourth = parseInt(pair[1][1]);
-
-  if (
-    (first >= third && first <= fourth) ||
-    (second >= third && second <= fourth) ||
-    (third >= first && third <= second) ||
-    (fourth >= first && fourth <= second)
-  ) {
-    count2++;
+    if (
+      (first >= third && first <= fourth) ||
+      (second >= third && second <= fourth) ||
+      (third >= first && third <= second) ||
+      (fourth >= first && fourth <= second)
+    ) {
+      count++;
+    }
+    return countOverlaps(data.slice(1), count);
   }
-});
+  return count;
+};
 
-console.log('b: ', count2);
+console.log('b: ', countOverlaps(pairedElves, 0));
