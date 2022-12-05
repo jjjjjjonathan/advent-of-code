@@ -1,11 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import { parseInput, splitData } from '../../helpers';
-import { organizeDrawing, organizeMoves, getAnswer, makeMoves } from './answer';
+import {
+  organizeDrawing,
+  organizeMoves,
+  getAnswer,
+  makeMoves,
+  makeMoves9001,
+} from './answer';
 
 const data = parseInput(__dirname, 'sample.txt');
 const [drawing, moves] = splitData(data, 2);
 const coordinates = organizeDrawing(drawing);
 const steps = organizeMoves(moves);
+const coordinates2 = organizeDrawing(drawing);
+const steps2 = organizeMoves(moves);
 
 describe('setup', () => {
   it('parses the input text file', () => {
@@ -32,10 +40,18 @@ describe('setup', () => {
   });
 });
 
-describe('answer', () => {
+describe('answer for part one', () => {
   const answer = getAnswer(makeMoves(coordinates, steps) as string[][]);
   it('should be a string', () => {
     expect(answer).toBeTypeOf('string');
     expect(answer).toBe('CMZ');
+  });
+});
+
+describe('answer for part two', () => {
+  const answer = getAnswer(makeMoves9001(coordinates2, steps2) as string[][]);
+  it('should be a string', () => {
+    expect(answer).toBeTypeOf('string');
+    expect(answer).toBe('MCD');
   });
 });

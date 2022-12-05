@@ -93,4 +93,47 @@ export const getAnswer = (drawing: string[][]): string => {
   return stringAnswer;
 };
 
-console.log(getAnswer(makeMoves(transposedDrawing, moveQueue) as string[][]));
+console.log(
+  'a: ',
+  getAnswer(makeMoves(transposedDrawing, moveQueue) as string[][])
+);
+
+// part two
+
+const transposedDrawing2 = organizeDrawing(drawing);
+const moveQueue2 = organizeMoves(moves);
+
+export const makeMoves9001 = (
+  drawing: string[][],
+  queue: number[][]
+): string[][] | undefined => {
+  const [count, prevLocation, newLocation] = queue[0];
+
+  // grab crates
+
+  const cratesToMove: string[] = [];
+  let step = 0;
+  while (step < count) {
+    const crate: string | undefined = drawing[prevLocation].pop();
+    cratesToMove.unshift(crate as string);
+    step++;
+  }
+
+  // move crates to new location
+  for (const crate of cratesToMove) {
+    drawing[newLocation].push(crate);
+  }
+
+  queue.shift();
+
+  if (queue.length > 0) {
+    return makeMoves9001(drawing, queue);
+  } else {
+    return drawing;
+  }
+};
+
+console.log(
+  'b: ',
+  getAnswer(makeMoves9001(transposedDrawing2, moveQueue2) as string[][])
+);
