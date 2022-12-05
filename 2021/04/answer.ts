@@ -14,10 +14,21 @@ const mappedRows = organizedBoards.map((board) =>
 
 const drawnNumbers = splitData[0].split(',');
 
+const checkWinner = (numbers: string[]): boolean => {
+  return numbers.filter((value) => value === 'x').length === 5;
+};
+
+interface BingoWinner {
+  card: string;
+  winningNumber: string;
+  index: number;
+}
+
 const findBingoWinner = (
   cards: string[][][],
   numbers: string[]
-): string[][] | undefined => {
+): BingoWinner[] | undefined => {
+  const winners: BingoWinner[] = [];
   for (let i = 0; i < numbers.length; i++) {
     for (let j = 0; j < cards.length; j++) {
       for (let k = 0; k < cards[j].length; k++) {
@@ -30,20 +41,79 @@ const findBingoWinner = (
     }
 
     if (i >= 4) {
-      for (const card of cards) {
-        let coordinates: number[][] = [];
-        for (let i = 0; i < card.length; i++) {
-          for (let j = 0; j < card[i].length; j++) {
-            if (card[i][j] === 'x') {
-              coordinates.push([i, j]);
+      for (let h = 0; h < cards.length; h++) {
+        const transposed: string[][] = new Array(cards[h][0].length);
+
+        for (let k = 0; k < cards[h].length; k++) {
+          let solved = false;
+          if (
+            checkWinner(cards[h][k]) &&
+            winners.findIndex((element) => element.index === h) === -1
+          ) {
+            winners.push({
+              card: JSON.stringify(cards[h]),
+              winningNumber: numbers[i],
+              index: h,
+            });
+          }
+          for (let j = 0; j < cards[h][k].length; j++) {
+            if (k === 0) {
+              transposed[j] = [cards[h][k][j]];
+            } else {
+              transposed[j].push(cards[h][k][j]);
             }
           }
+
+          transposed.forEach((column) => {
+            if (checkWinner(column)) {
+              solved = true;
+            }
+          });
+
+          if (
+            solved &&
+            winners.findIndex((element) => element.index === h) === -1
+          ) {
+            winners.push({
+              card: JSON.stringify(cards[h]),
+              winningNumber: numbers[i],
+              index: h,
+            });
+          }
         }
-        console.log(coordinates);
       }
     }
   }
-  return cards[0];
+  return winners;
 };
 
-console.log(findBingoWinner(mappedRows, drawnNumbers));
+const bingoWinners = findBingoWinner(mappedRows, drawnNumbers) as BingoWinner[];
+
+const firstWinner = bingoWinners[0];
+
+const lastWinner = bingoWinners[bingoWinners.length - 1];
+
+const scoreWinner = (card: string[][], winningNumber: string): number => {
+  const numbers = card.map((row) =>
+    row.map((value) => parseInt(value)).filter((int) => !Number.isNaN(int))
+  );
+
+  let points = 0;
+  numbers.forEach((row) => {
+    row.forEach((value) => {
+      points += value;
+    });
+  });
+
+  return points * parseInt(winningNumber);
+};
+
+console.log(
+  'a: ',
+  scoreWinner(JSON.parse(firstWinner.card), firstWinner.winningNumber)
+);
+
+console.log(
+  'b: ',
+  scoreWinner(JSON.parse(lastWinner.card), lastWinner.winningNumber)
+);
