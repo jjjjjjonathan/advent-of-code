@@ -1,6 +1,6 @@
 import { parseInput } from '../../helpers';
 
-const data = parseInput(__dirname);
+const data = parseInput(__dirname, 'input.txt');
 
 const splitData = data.split('\n');
 
@@ -44,7 +44,7 @@ console.log('a: ', parseInt(gammaRate, 2) * parseInt(epsilonRate, 2));
 const oxygenGeneratorRating = (binaries: string[], index: number): number => {
   const values = {
     '0': 0,
-    '1': 0
+    '1': 0,
   };
 
   for (let i = 0; i < binaries.length; i++) {
@@ -69,7 +69,7 @@ const oxygenGeneratorRating = (binaries: string[], index: number): number => {
 const c02ScrubberRating = (binaries: string[], index: number): number => {
   const values = {
     '0': 0,
-    '1': 0
+    '1': 0,
   };
 
   for (let i = 0; i < binaries.length; i++) {

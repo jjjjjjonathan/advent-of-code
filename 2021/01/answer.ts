@@ -1,6 +1,6 @@
 import { parseInput } from '../../helpers';
 
-const data = parseInput(__dirname);
+const data = parseInput(__dirname, 'input.txt');
 
 let count = 0;
 
