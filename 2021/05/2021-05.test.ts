@@ -7,18 +7,20 @@ import {
   isHorizontal,
   isVertical,
   labelVents,
-  getAnswer1
+  getAnswer,
+  isDiagonal
 } from './2021-05';
 
 const data = parseInput(__dirname, 'sample.txt');
 const rows = splitData(data, 1);
+const mappedData = mapData(rows);
+const [x, y] = getMaxXY([...mappedData]) as number[];
+const grid = buildGrid(x, y);
+const grid2 = buildGrid(x, y);
 
 describe('part one', () => {
-  const mappedData = mapData(rows);
-  const [x, y] = getMaxXY([...mappedData]) as number[];
-  const grid = buildGrid(x, y);
   const labelledVents = labelVents([...grid], [...mappedData]);
-  const answer1 = getAnswer1(grid);
+  const answer = getAnswer(labelledVents);
 
   it('is a double nested array', () => {
     expect(Array.isArray(mappedData)).toBe(true);
@@ -65,6 +67,25 @@ describe('part one', () => {
   });
 
   it('gives the correct answer', () => {
-    expect(answer1).toBe(5);
+    expect(answer).toBe(5);
+  });
+});
+
+describe('part two', () => {
+  const labelledVents = labelVents([...grid2], [...mappedData], true);
+  const answer2 = getAnswer(labelledVents);
+  it('tells you when a vent goes diagonally', () => {
+    const diagonalTrue = isDiagonal(mappedData[1]);
+    const diagonalTrue2 = isDiagonal(mappedData[9]);
+    const diagonalTrue3 = isDiagonal(mappedData[8]);
+    const diagonalFalse = isDiagonal(mappedData[0]);
+    expect(diagonalTrue).toBe(true);
+    expect(diagonalFalse).toBe(false);
+    expect(diagonalTrue2).toBe(true);
+    expect(diagonalTrue3).toBe(true);
+  });
+
+  it('gives the correct answer', () => {
+    expect(answer2).toBe(12);
   });
 });
