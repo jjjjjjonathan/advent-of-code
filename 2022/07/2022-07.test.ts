@@ -39,4 +39,35 @@ describe('setup', () => {
     expect(child.parentDirectory?.name).toBe('the parent');
     expect(parent.parentDirectory?.name).toBe(undefined);
   });
+
+  it('calculates directory size', () => {
+    const dir = new Directory('directory');
+    const file1 = new File('file1', 1111);
+    const file2 = new File('file2', 1111);
+
+    dir.addFile(file1);
+    dir.addFile(file2);
+
+    expect(dir.getDirectorySize()).toBe(2222);
+  });
+
+  it('calculates directory sizes with nested directories', () => {
+    const parentDir = new Directory('parent directory');
+    const file1 = new File('file1', 1111);
+    const file2 = new File('file2', 1111);
+    const childDir = new Directory('child directory');
+    const file3 = new File('file1', 1111);
+    const file4 = new File('file2', 1111);
+
+    parentDir.addFile(file1);
+    parentDir.addFile(file2);
+    childDir.addFile(file3);
+    childDir.addFile(file4);
+
+    childDir.labelParent(parentDir);
+    parentDir.addChild(childDir);
+
+    expect(parentDir.getDirectorySize()).toBe(4444);
+    expect(childDir.getDirectorySize()).toBe(2222);
+  });
 });

@@ -30,6 +30,18 @@ export class Directory {
   addFile(file: File) {
     this.files.push(file);
   }
+
+  getDirectorySize(): number {
+    let count = 0;
+    this.files.forEach((file) => {
+      count += file.size;
+    });
+
+    this.childDirectories.forEach((directory) => {
+      count += directory.getDirectorySize();
+    });
+    return count;
+  }
 }
 
 export class File {
