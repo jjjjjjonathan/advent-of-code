@@ -1,4 +1,4 @@
-# jjjjjjonathan's AoC solutions
+# Jonathan's AoC solutions
 
 These are my solutions for [Advent of Code](https://adventofcode.com/).
 
