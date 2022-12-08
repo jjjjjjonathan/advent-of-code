@@ -7,6 +7,10 @@ import {
   transpose,
   listVisibleTrees,
   getAnswer1,
+  getAnswer2,
+  findLeftBlockingDistance,
+  findRightBlockingDistance,
+  findVerticalBlockingDistance,
 } from './2022-08';
 
 const data = parseInput(__dirname, 'sample.txt');
@@ -75,9 +79,60 @@ describe('part one', () => {
   it('gives the correct answer', () => {
     const visibleInRows = listVisibleTrees(treeRows);
     const visibleInColumns = listVisibleTrees(treeColumns, true);
-    console.log(visibleInRows);
-    console.log(visibleInColumns);
     const answer = getAnswer1(visibleInRows, visibleInColumns);
     expect(answer).toBe(21);
+  });
+});
+
+describe('part two', () => {
+  it('finds the correct blocking distance from the left horizontally', () => {
+    const leftBlockingDistance = findLeftBlockingDistance(treeRows[1], 2);
+    expect(leftBlockingDistance).toBe(1);
+    const rightBlockingDistance = findRightBlockingDistance(treeRows[1], 2);
+    expect(rightBlockingDistance).toBe(2);
+    const upperBlockingDistance = findVerticalBlockingDistance(
+      treeRows,
+      2,
+      1,
+      true
+    );
+    expect(upperBlockingDistance).toBe(1);
+    const lowerBlockingDistance = findVerticalBlockingDistance(treeRows, 2, 1);
+    expect(lowerBlockingDistance).toBe(2);
+
+    const leftBlockingDistance2 = findLeftBlockingDistance(treeRows[3], 2);
+    expect(leftBlockingDistance2).toBe(2);
+    const rightBlockingDistance2 = findRightBlockingDistance(treeRows[3], 2);
+    expect(rightBlockingDistance2).toBe(2);
+    const upperBlockingDistance2 = findVerticalBlockingDistance(
+      treeRows,
+      2,
+      3,
+      true
+    );
+    expect(upperBlockingDistance2).toBe(2);
+    const lowerBlockingDistance2 = findVerticalBlockingDistance(treeRows, 2, 3);
+    expect(lowerBlockingDistance2).toBe(1);
+
+    const leftBlockingDistance3 = findLeftBlockingDistance(treeRows[1], 1);
+    expect(leftBlockingDistance3).toBe(1);
+    const rightBlockingDistance3 = findRightBlockingDistance(treeRows[1], 1);
+    expect(rightBlockingDistance3).toBe(1);
+    const upperBlockingDistance3 = findVerticalBlockingDistance(
+      treeRows,
+      1,
+      1,
+      true
+    );
+    expect(upperBlockingDistance3).toBe(1);
+    const lowerBlockingDistance3 = findVerticalBlockingDistance(treeRows, 1, 1);
+    expect(lowerBlockingDistance3).toBe(1);
+
+    const leftBlockingDistance4 = findLeftBlockingDistance(treeRows[1], 3);
+    expect(leftBlockingDistance4).toBe(1);
+  });
+  it('gives the correct answer', () => {
+    const answer = getAnswer2(treeRows);
+    expect(answer).toBe(8);
   });
 });

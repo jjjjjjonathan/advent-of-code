@@ -98,3 +98,72 @@ export const getAnswer1 = (
 };
 
 console.log(getAnswer1(visibleInRows, visibleInColumns));
+
+// part two
+
+export const findLeftBlockingDistance = (
+  row: number[],
+  index: number
+): number => {
+  const rowToCheck = row.slice(0, index);
+  const checkReversed = [...rowToCheck].reverse();
+  const lastBlockingTree = checkReversed.findIndex(
+    (treeHeight) => treeHeight >= row[index]
+  );
+  if (lastBlockingTree < 0) {
+    return rowToCheck.length;
+  } else {
+    return lastBlockingTree + 1;
+  }
+};
+
+export const findRightBlockingDistance = (row: number[], index: number) => {
+  const rowToCheck = row.slice(index + 1);
+  const firstBlockingTree = rowToCheck.findIndex(
+    (treeHeight) => treeHeight >= row[index]
+  );
+  if (firstBlockingTree < 0) {
+    return rowToCheck.length;
+  } else {
+    return firstBlockingTree + 1;
+  }
+};
+
+export const findVerticalBlockingDistance = (
+  trees: number[][],
+  xIndex: number,
+  yIndex: number,
+  checkUpper: boolean = false
+) => {
+  const column: number[] = [];
+
+  for (let y = 0; y < trees.length; y++) {
+    column.push(trees[y][xIndex]);
+  }
+
+  if (checkUpper) {
+    return findLeftBlockingDistance(column, yIndex);
+  } else {
+    return findRightBlockingDistance(column, yIndex);
+  }
+};
+
+export const getAnswer2 = (treeRows: number[][]): number => {
+  let scenicScore = 0;
+
+  for (let i = 1; i < treeRows.length - 1; i++) {
+    for (let j = 1; j < treeRows[0].length - 1; j++) {
+      const left = findLeftBlockingDistance(treeRows[i], j);
+      const right = findRightBlockingDistance(treeRows[i], j);
+      const upper = findVerticalBlockingDistance(treeRows, j, i, true);
+      const lower = findVerticalBlockingDistance(treeRows, j, i);
+      let newScenicScore = left * right * upper * lower;
+      if (newScenicScore > scenicScore) {
+        scenicScore = newScenicScore;
+      }
+    }
+  }
+  return scenicScore;
+};
+
+console.log(getAnswer2(treeRows));
