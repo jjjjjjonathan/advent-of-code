@@ -1,6 +1,12 @@
 import { parseInput, splitData } from '../../helpers';
 import { describe, it, expect } from 'vitest';
-import { Directory, File, buildDataTree, getAnswer1 } from './2022-07';
+import {
+  Directory,
+  File,
+  buildDataTree,
+  getAnswer1,
+  getAnswer2,
+} from './2022-07';
 
 const data = parseInput(__dirname, 'sample.txt');
 const terminalOutput = splitData(data, 1);
@@ -88,5 +94,10 @@ describe('answers', () => {
   it('gives the correct first part answer', () => {
     const answer = getAnswer1([root]);
     expect(answer).toBe(95437);
+  });
+
+  it('gives the correct second part answer', () => {
+    const answer = getAnswer2([root]);
+    expect(answer).toBe(24933642);
   });
 });

@@ -120,3 +120,34 @@ export const getAnswer1 = (queue: Directory[], sum: number = 0): number => {
 };
 
 console.log(getAnswer1([root]));
+
+export const getAnswer2 = (
+  queue: Directory[],
+  minimumDirectorySize: number = Infinity,
+  rootSize: number | undefined = undefined
+) => {
+  const node = queue[0];
+  const directorySize = node.getDirectorySize();
+  const TOTAL_DISK_SPACE = 70000000;
+  const DISK_SPACE_NEEDED = 30000000;
+
+  if (rootSize === undefined) {
+    rootSize = node.getDirectorySize();
+  }
+
+  const USED_SPACE = TOTAL_DISK_SPACE - rootSize;
+  const REMAINING_NEEDED_SPACE = DISK_SPACE_NEEDED - USED_SPACE;
+
+  if (directorySize >= REMAINING_NEEDED_SPACE) {
+    minimumDirectorySize = Math.min(minimumDirectorySize, directorySize);
+  }
+
+  queue = queue.concat(node.childDirectories);
+  queue.shift();
+  if (queue.length > 0) {
+    return getAnswer2(queue, minimumDirectorySize, rootSize);
+  }
+  return minimumDirectorySize;
+};
+
+console.log(getAnswer2([root]));
