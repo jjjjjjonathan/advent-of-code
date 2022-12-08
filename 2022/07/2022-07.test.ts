@@ -1,6 +1,6 @@
 import { parseInput, splitData } from '../../helpers';
 import { describe, it, expect } from 'vitest';
-import { Directory, File } from './2022-07';
+import { Directory, File, buildDataTree, getAnswer1 } from './2022-07';
 
 const data = parseInput(__dirname, 'sample.txt');
 const terminalOutput = splitData(data, 1);
@@ -20,7 +20,7 @@ describe('setup', () => {
   });
 
   it('creates files', () => {
-    const testFile = new File('test name', 500);
+    const testFile = new File('test name', '500');
     expect(testFile.name).toBe('test name');
     expect(testFile.size).toBe(500);
   });
@@ -42,8 +42,8 @@ describe('setup', () => {
 
   it('calculates directory size', () => {
     const dir = new Directory('directory');
-    const file1 = new File('file1', 1111);
-    const file2 = new File('file2', 1111);
+    const file1 = new File('file1', '1111');
+    const file2 = new File('file2', '1111');
 
     dir.addFile(file1);
     dir.addFile(file2);
@@ -53,21 +53,40 @@ describe('setup', () => {
 
   it('calculates directory sizes with nested directories', () => {
     const parentDir = new Directory('parent directory');
-    const file1 = new File('file1', 1111);
-    const file2 = new File('file2', 1111);
+    const file1 = new File('file1', '1111');
+    const file2 = new File('file2', '1111');
     const childDir = new Directory('child directory');
-    const file3 = new File('file1', 1111);
-    const file4 = new File('file2', 1111);
+    const file3 = new File('file1', '1111');
+    const file4 = new File('file2', '1111');
+    const file5 = new File('file5', '1111');
+    const file6 = new File('file6', '1111');
+    const grandchild1 = new Directory('grandchild1');
+    const grandchild2 = new Directory('grandchild2');
 
     parentDir.addFile(file1);
     parentDir.addFile(file2);
     childDir.addFile(file3);
     childDir.addFile(file4);
+    grandchild1.addFile(file5);
+    grandchild2.addFile(file6);
 
     childDir.labelParent(parentDir);
     parentDir.addChild(childDir);
 
-    expect(parentDir.getDirectorySize()).toBe(4444);
-    expect(childDir.getDirectorySize()).toBe(2222);
+    grandchild1.labelParent(childDir);
+    grandchild2.labelParent(childDir);
+    childDir.addChild(grandchild1);
+    childDir.addChild(grandchild2);
+
+    expect(parentDir.getDirectorySize()).toBe(6666);
+    expect(childDir.getDirectorySize()).toBe(4444);
+  });
+});
+
+describe('answers', () => {
+  const root = buildDataTree(terminalOutput);
+  it('gives the correct first part answer', () => {
+    const answer = getAnswer1([root]);
+    expect(answer).toBe(95437);
   });
 });
