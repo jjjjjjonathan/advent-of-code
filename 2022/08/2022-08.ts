@@ -11,14 +11,31 @@ export const findTallTreeLocation = (row: number[]): number => {
 
 export const getVisibleTreesInRow = (
   row: number[],
-  visibleTrees: number[] = []
+  fromRight: boolean = false,
+  visibleTrees: number[] = [],
+  originalLength: number = row.length
 ): number[] => {
   const tallestTree = findTallTreeLocation(row);
-  visibleTrees.push(tallestTree);
+
+  visibleTrees.push(
+    fromRight ? Math.abs(tallestTree - (originalLength - 1)) : tallestTree
+  );
 
   if (tallestTree === 0) {
     return visibleTrees;
   } else {
-    return getVisibleTreesInRow(row.slice(0, tallestTree), visibleTrees);
+    return getVisibleTreesInRow(
+      row.slice(0, tallestTree),
+      fromRight,
+      visibleTrees,
+      originalLength
+    );
   }
+};
+
+export const mergeLeftRight = (
+  rowFromLeft: number[],
+  rowFromRight: number[]
+): number[] => {
+  return Array.from(new Set(rowFromLeft.concat(rowFromRight)));
 };
