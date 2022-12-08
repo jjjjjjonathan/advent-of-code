@@ -1,6 +1,6 @@
 import { parseInput } from '../../helpers';
 import { describe, it, expect } from 'vitest';
-import { getMedian, getAnswer1 } from './2021-07';
+import { getMedian, getAnswer1, getMean, getAnswer2 } from './2021-07';
 
 const data = parseInput(__dirname, 'sample.txt');
 const sortedCrabs = data
@@ -25,5 +25,17 @@ describe('first answer', () => {
   it('returns the correct answer for first part', () => {
     const answer = getAnswer1(sortedCrabs, median);
     expect(answer).toEqual(37);
+  });
+});
+
+describe('second answer', () => {
+  const mean = getMean(sortedCrabs);
+  it('gets the correct mean', () => {
+    expect(mean).toBe(4.9);
+  });
+
+  it('returns the correct answer for second part', () => {
+    const answer = getAnswer2(sortedCrabs, mean);
+    expect(answer).toBe(168);
   });
 });

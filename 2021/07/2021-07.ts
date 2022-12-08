@@ -28,4 +28,31 @@ export const getAnswer1 = (crabs: number[], median: number): number => {
   );
 };
 
+export const getMean = (crabs: number[]): number => {
+  return (
+    crabs.reduce(
+      (previousValue, currentValue) => previousValue + currentValue,
+      0
+    ) / crabs.length
+  );
+};
+
+const mean = getMean(sortedCrabs);
+
+export const getAnswer2 = (crabs: number[], mean: number): number => {
+  const reducer = (previousValue: number, currentValue: number) =>
+    previousValue + currentValue;
+  const floor = crabs.map((position) => {
+    const stepsNeeded = Math.abs(Math.floor(mean) - position);
+    return (stepsNeeded * (stepsNeeded + 1)) / 2;
+  });
+
+  const ceiling = crabs.map((position) => {
+    const stepsNeeded = Math.abs(Math.ceil(mean) - position);
+    return (stepsNeeded * (stepsNeeded + 1)) / 2;
+  });
+  return Math.min(floor.reduce(reducer, 0), ceiling.reduce(reducer, 0));
+};
+
 console.log(getAnswer1(sortedCrabs, median));
+console.log(getAnswer2(sortedCrabs, mean));
