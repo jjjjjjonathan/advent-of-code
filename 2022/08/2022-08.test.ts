@@ -4,12 +4,16 @@ import {
   findTallTreeLocation,
   getVisibleTreesInRow,
   mergeLeftRight,
+  transpose,
+  listVisibleTrees,
+  getAnswer1,
 } from './2022-08';
 
 const data = parseInput(__dirname, 'sample.txt');
 const treeRows = splitData(data, 1).map((row) => {
   return row.split('').map((treeHeight) => parseInt(treeHeight, 10));
 });
+const treeColumns = transpose(treeRows);
 
 describe('setup', () => {
   it('parses input into an array of array of numbers', () => {
@@ -30,7 +34,8 @@ describe('setup', () => {
   it('returns array of visible trees in a row', () => {
     const visibleTrees = getVisibleTreesInRow(treeRows[0]);
     const visibleTreesReverse = getVisibleTreesInRow(
-      [...treeRows[0]].reverse()
+      [...treeRows[0]].reverse(),
+      true
     );
     const rowZero = Array.from(
       new Set(visibleTrees.concat(visibleTreesReverse))
@@ -63,5 +68,16 @@ describe('setup', () => {
     expect(visibleTrees4reverse.length).toBe(2);
     const rowFour = mergeLeftRight(visibleTrees4, visibleTrees4reverse);
     expect(rowFour.length).toBe(4);
+  });
+});
+
+describe('part one', () => {
+  it('gives the correct answer', () => {
+    const visibleInRows = listVisibleTrees(treeRows);
+    const visibleInColumns = listVisibleTrees(treeColumns, true);
+    console.log(visibleInRows);
+    console.log(visibleInColumns);
+    const answer = getAnswer1(visibleInRows, visibleInColumns);
+    expect(answer).toBe(21);
   });
 });
