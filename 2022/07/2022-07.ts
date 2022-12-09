@@ -1,4 +1,3 @@
-import { Dir } from 'fs';
 import { parseInput, splitData } from '../../helpers';
 
 const data = parseInput(__dirname, 'input.txt');
