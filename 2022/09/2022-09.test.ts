@@ -1,5 +1,6 @@
 import { parseInput, splitData } from '../../helpers';
 import { describe, it, expect } from 'vitest';
+import { getAnswer1} from './2022-09'
 
 const data = parseInput(__dirname, 'sample.txt');
 const motions = splitData(data, 1).map((motion) => motion.split(' '));
@@ -11,3 +12,10 @@ describe('setup', () => {
     expect(motions[0][1]).toBe('4');
   });
 });
+
+describe('first part', () => {
+  it('gives the correct answer', () =>{
+    const answer = getAnswer1();
+    expect(answer).toBe(13)
+  })
+})
