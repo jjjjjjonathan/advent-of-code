@@ -60,6 +60,19 @@ export const makeMove = (
           whereTailHasBeen.unshift([previousPosition[0], i]);
         }
       }
+    } else {
+      const diagonalPosition =
+        previousPosition[0] < currentPosition[0]
+          ? [previousPosition[0] + 1, previousPosition[1] - 1]
+          : [previousPosition[0] - 1, previousPosition[1] - 1];
+      if (!tailVisitedBefore(diagonalPosition, whereTailHasBeen)) {
+        whereTailHasBeen.unshift(diagonalPosition);
+      }
+      for (let i = diagonalPosition[1] - 1; i > currentPosition[1]; i--) {
+        if (!tailVisitedBefore([diagonalPosition[0], i], whereTailHasBeen)) {
+          whereTailHasBeen.unshift([diagonalPosition[0], i]);
+        }
+      }
     }
   }
 

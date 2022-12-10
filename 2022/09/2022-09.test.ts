@@ -117,6 +117,15 @@ describe('setup', () => {
     expect(moveRD.whereTailHasBeen[2][0]).toBe(2);
     expect(moveRD.whereTailHasBeen[2][1]).toBe(1);
   });
+
+  it('can move tail digaonlly when moving left', () => {
+    const moveLU = makeMove([1, 4], ['L', '4'], [[0, 4]]);
+    expect(moveLU.whereTailHasBeen.length).toBe(4);
+    const moveLD = makeMove([1, 4], ['L', '4'], [[2, 4]]);
+    expect(moveLD.whereTailHasBeen.length).toBe(4);
+    expect(moveLD.whereTailHasBeen[2][0]).toBe(1);
+    expect(moveLD.whereTailHasBeen[2][1]).toBe(3);
+  });
 });
 
 describe('first part', () => {
