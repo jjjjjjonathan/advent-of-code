@@ -130,7 +130,8 @@ describe('setup', () => {
 
 describe('first part', () => {
   it('gives the correct answer', () => {
-    const answer = getAnswer1();
+    const answer = getAnswer1(motions, whereTailHasBeen);
+    console.log(answer);
     expect(answer).toBe(13);
   });
 });
