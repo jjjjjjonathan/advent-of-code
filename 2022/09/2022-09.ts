@@ -11,6 +11,14 @@ type MakeMove = {
   whereTailHasBeen: number[][];
 };
 
+const tailVisitedBefore = (location: number[], moves: number[][]): boolean => {
+  return (
+    moves.findIndex(
+      (move) => move[0] === location[0] && move[1] === location[1]
+    ) > -1
+  );
+};
+
 export const makeMove = (
   move: string[],
   whereTailHasBeen: number[][]
@@ -23,7 +31,9 @@ export const makeMove = (
 
     if (previousPosition[0] === currentPosition[0]) {
       for (let i = previousPosition[1] + 1; i < currentPosition[1]; i++) {
-        whereTailHasBeen.unshift([previousPosition[0], i]);
+        if (!tailVisitedBefore([previousPosition[0], i], whereTailHasBeen)) {
+          whereTailHasBeen.unshift([previousPosition[0], i]);
+        }
       }
     }
   }
@@ -33,7 +43,9 @@ export const makeMove = (
 
     if (previousPosition[0] === currentPosition[0]) {
       for (let i = previousPosition[1] - 1; i > currentPosition[1]; i--) {
-        whereTailHasBeen.unshift([previousPosition[0], i]);
+        if (!tailVisitedBefore([previousPosition[0], i], whereTailHasBeen)) {
+          whereTailHasBeen.unshift([previousPosition[0], i]);
+        }
       }
     }
   }
@@ -43,7 +55,9 @@ export const makeMove = (
 
     if (previousPosition[1] === currentPosition[1]) {
       for (let i = previousPosition[0] + 1; i < currentPosition[0]; i++) {
-        whereTailHasBeen.unshift([i, previousPosition[1]]);
+        if (!tailVisitedBefore([i, previousPosition[1]], whereTailHasBeen)) {
+          whereTailHasBeen.unshift([i, previousPosition[1]]);
+        }
       }
     }
   }
@@ -53,7 +67,9 @@ export const makeMove = (
 
     if (previousPosition[1] === currentPosition[1]) {
       for (let i = previousPosition[0] - 1; i > currentPosition[0]; i--) {
-        whereTailHasBeen.unshift([i, previousPosition[1]]);
+        if (!tailVisitedBefore([i, previousPosition[1]], whereTailHasBeen)) {
+          whereTailHasBeen.unshift([i, previousPosition[1]]);
+        }
       }
     }
   }

@@ -45,7 +45,36 @@ describe('setup', () => {
     expect(fourthMove.currentPosition[1]).toBe(0);
     expect(fourthMove.whereTailHasBeen[0][0]).toBe(0);
     expect(fourthMove.whereTailHasBeen[0][1]).toBe(0);
-    console.log(fourthMove.whereTailHasBeen);
+  });
+
+  it('does not add to whereTailHasBeen if the location already exists in the array', () => {
+    const moveR = makeMove(motions[0], [
+      [0, 0],
+      [0, 1],
+    ]);
+    expect(moveR.whereTailHasBeen.length).toBe(4);
+
+    const moveL = makeMove(motions[2], [
+      [0, 0],
+      [0, -1],
+    ]);
+    expect(moveL.whereTailHasBeen.length).toBe(3);
+
+    const moveU = makeMove(motions[1], [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+    ]);
+    expect(moveU.whereTailHasBeen.length).toBe(4);
+
+    const moveD = makeMove(
+      ['D', '4'],
+      [
+        [0, 0],
+        [-1, 0],
+      ]
+    );
+    expect(moveD.whereTailHasBeen.length).toBe(4);
   });
 });
 
