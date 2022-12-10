@@ -20,11 +20,11 @@ const tailVisitedBefore = (location: number[], moves: number[][]): boolean => {
 };
 
 export const makeMove = (
+  currentPosition: number[],
   move: string[],
   whereTailHasBeen: number[][]
 ): MakeMove => {
   const previousPosition = [...whereTailHasBeen[0]];
-  const currentPosition = [...whereTailHasBeen[0]];
 
   if (move[0] === 'R') {
     currentPosition[1] += parseInt(move[1]);
@@ -59,6 +59,19 @@ export const makeMove = (
           whereTailHasBeen.unshift([i, previousPosition[1]]);
         }
       }
+    } else {
+      const diagonalPosition =
+        previousPosition[1] < currentPosition[1]
+          ? [previousPosition[0] + 1, previousPosition[1] + 1]
+          : [previousPosition[0] + 1, previousPosition[1] - 1];
+      if (!tailVisitedBefore(diagonalPosition, whereTailHasBeen)) {
+        whereTailHasBeen.unshift(diagonalPosition);
+      }
+      for (let i = diagonalPosition[0] + 1; i < currentPosition[0]; i++) {
+        if (!tailVisitedBefore([i, diagonalPosition[1]], whereTailHasBeen)) {
+          whereTailHasBeen.unshift([i, diagonalPosition[1]]);
+        }
+      }
     }
   }
 
@@ -71,6 +84,20 @@ export const makeMove = (
           whereTailHasBeen.unshift([i, previousPosition[1]]);
         }
       }
+    } else {
+      const diagonalPosition =
+        previousPosition[1] < currentPosition[1]
+          ? [previousPosition[0] - 1, previousPosition[1] + 1]
+          : [previousPosition[0] - 1, previousPosition[1] - 1];
+
+      if (!tailVisitedBefore(diagonalPosition, whereTailHasBeen)) {
+        whereTailHasBeen.unshift(diagonalPosition);
+      }
+      for (let i = diagonalPosition[0] - 1; i > currentPosition[0]; i--) {
+        if (!tailVisitedBefore([i, diagonalPosition[1]], whereTailHasBeen)) {
+          whereTailHasBeen.unshift([i, diagonalPosition[1]]);
+        }
+      }
     }
   }
   return { currentPosition, whereTailHasBeen };
@@ -80,4 +107,4 @@ export const getAnswer1 = () => {
   return 13;
 };
 
-console.log(getAnswer1());
+// console.log(getAnswer1());

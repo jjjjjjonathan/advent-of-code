@@ -16,7 +16,10 @@ describe('setup', () => {
   });
 
   it('makes a move to right, and stays in same row as tail', () => {
-    const firstMove = makeMove(motions[0], [...whereTailHasBeen]);
+    const firstMove = makeMove([...startingPosition], motions[0], [
+      ...whereTailHasBeen,
+    ]);
+
     expect(firstMove.currentPosition[0]).toBe(0);
     expect(firstMove.currentPosition[1]).toBe(4);
     expect(firstMove.whereTailHasBeen[0][0]).toBe(0);
@@ -24,7 +27,9 @@ describe('setup', () => {
   });
 
   it('makes a move to left, and stays in same row as tail', () => {
-    const thirdMove = makeMove(motions[2], [...whereTailHasBeen]);
+    const thirdMove = makeMove([...startingPosition], motions[2], [
+      ...whereTailHasBeen,
+    ]);
     expect(thirdMove.currentPosition[0]).toBe(0);
     expect(thirdMove.currentPosition[1]).toBe(-3);
     expect(thirdMove.whereTailHasBeen[0][0]).toBe(0);
@@ -32,7 +37,9 @@ describe('setup', () => {
   });
 
   it('makes a move up, and stays in same column as tail', () => {
-    const secondMove = makeMove(motions[1], [...whereTailHasBeen]);
+    const secondMove = makeMove([...startingPosition], motions[1], [
+      ...whereTailHasBeen,
+    ]);
     expect(secondMove.currentPosition[0]).toBe(4);
     expect(secondMove.currentPosition[1]).toBe(0);
     expect(secondMove.whereTailHasBeen[0][0]).toBe(3);
@@ -40,7 +47,9 @@ describe('setup', () => {
   });
 
   it('makes a move down, and stays in same column as tail', () => {
-    const fourthMove = makeMove(motions[3], [...whereTailHasBeen]);
+    const fourthMove = makeMove([...startingPosition], motions[3], [
+      ...whereTailHasBeen,
+    ]);
     expect(fourthMove.currentPosition[0]).toBe(-1);
     expect(fourthMove.currentPosition[1]).toBe(0);
     expect(fourthMove.whereTailHasBeen[0][0]).toBe(0);
@@ -48,19 +57,19 @@ describe('setup', () => {
   });
 
   it('does not add to whereTailHasBeen if the location already exists in the array', () => {
-    const moveR = makeMove(motions[0], [
+    const moveR = makeMove([...startingPosition], motions[0], [
       [0, 0],
       [0, 1],
     ]);
     expect(moveR.whereTailHasBeen.length).toBe(4);
 
-    const moveL = makeMove(motions[2], [
+    const moveL = makeMove([...startingPosition], motions[2], [
       [0, 0],
       [0, -1],
     ]);
     expect(moveL.whereTailHasBeen.length).toBe(3);
 
-    const moveU = makeMove(motions[1], [
+    const moveU = makeMove([...startingPosition], motions[1], [
       [0, 0],
       [1, 0],
       [2, 0],
@@ -68,6 +77,7 @@ describe('setup', () => {
     expect(moveU.whereTailHasBeen.length).toBe(4);
 
     const moveD = makeMove(
+      [...startingPosition],
       ['D', '4'],
       [
         [0, 0],
@@ -75,6 +85,28 @@ describe('setup', () => {
       ]
     );
     expect(moveD.whereTailHasBeen.length).toBe(4);
+  });
+
+  it('can move tail diagonally when going up', () => {
+    const moveUR = makeMove([0, 4], motions[1], [
+      [0, 3],
+      [1, 4],
+    ]);
+    expect(moveUR.whereTailHasBeen.length).toBe(4);
+    const moveUL = makeMove([0, 2], motions[1], [
+      [0, 3],
+      [1, 2],
+    ]);
+    expect(moveUL.whereTailHasBeen.length).toBe(4);
+  });
+
+  it('can move tail diagonally when moving down', () => {
+    const moveDR = makeMove([4, 1], ['D', '4'], [[4, 0]]);
+    expect(moveDR.whereTailHasBeen.length).toBe(4);
+    const moveDL = makeMove([4, 4], ['D', '4'], [[4, 5]]);
+    expect(moveDL.whereTailHasBeen.length).toBe(4);
+    expect(moveDL.whereTailHasBeen[2][0]).toBe(3);
+    expect(moveDL.whereTailHasBeen[2][1]).toBe(4);
   });
 });
 
