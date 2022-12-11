@@ -19,6 +19,7 @@ class Monkey {
   ifTrue: number;
   ifFalse: number;
   siblingMonkeys: Monkey[] | null;
+  modProd: number | null;
 
   constructor(
     id: number,
@@ -37,14 +38,16 @@ class Monkey {
     this.ifTrue = ifTrue;
     this.ifFalse = ifFalse;
     this.siblingMonkeys = null;
+    this.modProd = null;
   }
 
   inspectItem() {
     this.currentItem = this.items[0];
     this.items.shift();
     this.inspected += 1;
-    this.currentItem = this.multiplyWorryLevel(this.currentItem);
-    this.currentItem = Math.floor((this.currentItem as number) / 3);
+    this.currentItem =
+      this.multiplyWorryLevel(this.currentItem) % (this.modProd as number);
+    // this.currentItem = Math.floor((this.currentItem as number) / 3);
     this.throwItem();
   }
 
@@ -53,6 +56,11 @@ class Monkey {
   }
 
   addSiblings(monkeyArray: Monkey[]) {
+    const modProd = monkeyArray.reduce(
+      (prod: number, monkey: Monkey): number => prod * monkey.testNumber,
+      1
+    );
+    this.modProd = modProd;
     const selfRemoved = monkeyArray.filter((monkey) => monkey.id !== this.id);
     this.siblingMonkeys = selfRemoved;
   }
@@ -68,7 +76,10 @@ class Monkey {
       const monkeyToThrowTo = this.siblingMonkeys?.find(
         (monkey) => monkey.id === this.ifFalse
       );
-      monkeyToThrowTo?.items.push(this.currentItem as number);
+      monkeyToThrowTo?.items.push(
+        this.currentItem as number
+        // (this.currentItem as number) % (this.modProd as number)
+      );
       this.currentItem = null;
     }
   }
@@ -143,7 +154,7 @@ const monkeyArray = buildMonkeyArray(monkeys);
 
 let round = 0;
 
-while (round < 20) {
+while (round < 10000) {
   monkeyArray.forEach((monkey) => {
     while (monkey.items.length > 0) {
       monkey.inspectItem();
