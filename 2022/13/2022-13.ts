@@ -17,7 +17,7 @@ export const compareNumbers = (
 export const comparePairs = (
   leftValues: (number | object)[],
   rightValues: (number | object)[]
-): boolean => {
+): boolean | undefined => {
   let index = 0;
   while (index < leftValues.length && index < rightValues.length) {
     if (
@@ -36,8 +36,7 @@ export const comparePairs = (
       }
     }
   }
-
-  return true;
+  return leftValues.length < rightValues.length;
 };
 
 console.log(
