@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/05-input.txt');
 const [drawing, moves] = splitData(data, 2);
 
 export const organizeDrawing = (drawing: string): string[][] => {

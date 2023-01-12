@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 import {
   organizeDrawing,
   organizeMoves,
   getAnswer,
   makeMoves,
-  makeMoves9001,
-} from './answer';
+  makeMoves9001
+} from './05';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/05-sample.txt');
 const [drawing, moves] = splitData(data, 2);
 const coordinates = organizeDrawing(drawing);
 const steps = organizeMoves(moves);
