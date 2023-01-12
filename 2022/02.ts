@@ -1,12 +1,13 @@
-import { parseInput } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/02-input.txt');
+const rounds = splitData(data, 1);
 
-const rounds = data.split('\n').map((round) => round.split(' '));
+const splitRounds = rounds.map((round) => round.split(' '));
 
 let points = 0;
 
-rounds.forEach((round) => {
+splitRounds.forEach((round) => {
   if (round[1] === 'X') points += 1;
   if (round[1] === 'Y') points += 2;
   if (round[1] === 'Z') points += 3;
@@ -35,7 +36,7 @@ console.log('a: ', points);
 
 let realPoints = 0;
 
-rounds.forEach((round) => {
+splitRounds.forEach((round) => {
   if (round[1] === 'Y') {
     realPoints += 3;
     if (round[0] === 'A') realPoints += 1;
