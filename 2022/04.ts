@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/04-input.txt');
 
 const organizedData = splitData(data, 1);
 
@@ -17,7 +17,7 @@ const getFirstDataset = (data: string[][][]): number[] => {
     parseInt(data[0][0][0]),
     parseInt(data[0][0][1]),
     parseInt(data[0][1][0]),
-    parseInt(data[0][1][1]),
+    parseInt(data[0][1][1])
   ];
 };
 

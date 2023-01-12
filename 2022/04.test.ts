@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { parseInput, splitData } from '../../helpers';
-import { pairElves, countFullContains, countOverlaps } from './answer';
+import { parseInput, splitData } from '../helpers';
+import { pairElves, countFullContains, countOverlaps } from './04';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/04-sample.txt');
 const organizedData = splitData(data, 1);
 const pairedElves = pairElves(organizedData);
 
