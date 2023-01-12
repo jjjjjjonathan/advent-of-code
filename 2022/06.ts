@@ -1,6 +1,6 @@
-import { parseInput } from '../../helpers';
+import { parseInput } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/06-input.txt');
 
 const startOfPacketIndex = 4;
 const startOfPacketCharacters = 4;

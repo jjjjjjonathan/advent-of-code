@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/12-sample.txt');
 const rows = splitData(data, 1).map((row) => row.split(''));
 export const START = 'S';
 export const END = 'E';

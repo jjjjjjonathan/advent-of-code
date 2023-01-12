@@ -1,7 +1,7 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 import { describe, it, expect } from 'vitest';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/15-sample.txt');
 const sensorReports = splitData(data, 1);
 
 describe('setup', () => {

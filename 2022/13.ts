@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/13-sample.txt');
 const pairs: (number | object)[][] = splitData(data, 2).map((pair) =>
   pair.split('\n').map((element) => JSON.parse(element))
 );

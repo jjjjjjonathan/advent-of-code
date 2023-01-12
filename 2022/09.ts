@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/09-input.txt');
 const motions = splitData(data, 1).map((motion) => motion.split(' '));
 
 const startingPosition = [0, 0];

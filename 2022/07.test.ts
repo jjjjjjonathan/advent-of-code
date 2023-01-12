@@ -1,14 +1,8 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 import { describe, it, expect } from 'vitest';
-import {
-  Directory,
-  File,
-  buildDataTree,
-  getAnswer1,
-  getAnswer2,
-} from './2022-07';
+import { Directory, File, buildDataTree, getAnswer1, getAnswer2 } from './07';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/07-sample.txt');
 const terminalOutput = splitData(data, 1);
 
 describe('setup', () => {

@@ -1,8 +1,8 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 import { describe, it, expect } from 'vitest';
-import { findPoint, START, END } from './2022-12';
+import { findPoint, START, END } from './12';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/12-sample.txt');
 const rows = splitData(data, 1).map((row) => row.split(''));
 
 describe('setup', () => {

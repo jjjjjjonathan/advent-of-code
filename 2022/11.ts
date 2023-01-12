@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/11-input.txt');
 const monkeys = splitData(data, 2);
 const numberRegex = /[^0-9,]/g;
 

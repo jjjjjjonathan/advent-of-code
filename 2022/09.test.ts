@@ -1,8 +1,8 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 import { describe, it, expect } from 'vitest';
-import { getAnswer1, makeMove } from './2022-09';
+import { getAnswer1, makeMove } from './09';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/09-sample.txt');
 const motions = splitData(data, 1).map((motion) => motion.split(' '));
 const startingPosition = [0, 0];
 const whereTailHasBeen = [startingPosition];

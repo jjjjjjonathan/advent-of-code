@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/10-input.txt');
 const program = splitData(data, 1);
 const cyclesToCheck = [20, 60, 100, 140, 180, 220];
 

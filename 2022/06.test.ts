@@ -1,8 +1,8 @@
-import { parseInput } from '../../helpers';
+import { parseInput } from '../helpers';
 import { describe, it, expect } from 'vitest';
-import { findCorrectMarker } from './2022-06';
+import { findCorrectMarker } from './06';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/06-sample.txt');
 describe('part 1', () => {
   it('parses txt file into a string', () => {
     expect(data).toBeTypeOf('string');

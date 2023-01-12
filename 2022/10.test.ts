@@ -1,8 +1,8 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 import { describe, it, expect } from 'vitest';
-import { getSignalStrength } from './2022-10';
+import { getSignalStrength } from './10';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/10-sample.txt');
 const program = splitData(data, 1);
 const cyclesToCheck = [20, 60, 100, 140, 180, 220];
 

@@ -1,4 +1,4 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 import { describe, it, expect } from 'vitest';
 import {
   findTallTreeLocation,
@@ -11,9 +11,9 @@ import {
   findLeftBlockingDistance,
   findRightBlockingDistance,
   findVerticalBlockingDistance,
-} from './2022-08';
+} from './08';
 
-const data = parseInput(__dirname, 'sample.txt');
+const data = parseInput(__dirname, 'data/08-sample.txt');
 const treeRows = splitData(data, 1).map((row) => {
   return row.split('').map((treeHeight) => parseInt(treeHeight, 10));
 });

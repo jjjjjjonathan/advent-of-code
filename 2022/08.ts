@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/08-input.txt');
 const treeRows = splitData(data, 1).map((row) => {
   return row.split('').map((treeHeight) => parseInt(treeHeight, 10));
 });

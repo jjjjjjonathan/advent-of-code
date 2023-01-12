@@ -1,6 +1,6 @@
-import { parseInput, splitData } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/07-input.txt');
 
 const terminalOutput = splitData(data, 1);
 
@@ -124,7 +124,7 @@ export const getAnswer2 = (
   queue: Directory[],
   minimumDirectorySize: number = Infinity,
   rootSize: number | undefined = undefined
-) => {
+): number => {
   const node = queue[0];
   const directorySize = node.getDirectorySize();
   const TOTAL_DISK_SPACE = 70000000;
