@@ -1,12 +1,12 @@
-import { parseInput } from '../../helpers';
+import { parseInput, splitData } from '../helpers';
 
-const data = parseInput(__dirname, 'input.txt');
+const data = parseInput(__dirname, 'data/03-input.txt');
 
-const rucksacks = data.split('\n');
+const rucksacks = splitData(data, 1);
 
 const organizedRucksacks = rucksacks.map((rucksack) => [
   rucksack.slice(0, Math.floor(rucksack.length / 2)),
-  rucksack.slice(Math.floor(rucksack.length / 2)),
+  rucksack.slice(Math.floor(rucksack.length / 2))
 ]);
 
 const priorityValues = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
