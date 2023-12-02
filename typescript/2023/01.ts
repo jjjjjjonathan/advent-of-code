@@ -9,33 +9,48 @@ const withWordsFirstInstance =
 const withWordsLastInstance =
   /(1|2|3|4|5|6|7|8|9|one|two|three|four|five|six|seven|eight|nine)(?!.*(1|2|3|4|5|6|7|8|9|one|two|three|four|five|six|seven|eight|nine))/;
 
+const numbersAndWords =
+  /(?=([1-9]|one|two|three|four|five|six|seven|eight|nine)).*([1-9]|one|two|three|four|five|six|seven|eight|nine)/;
+
 export const getDigits = (value: string, withWordsAsNumbers: boolean) => {
   let firstDigit = '';
   let lastDigit = '';
   if (withWordsAsNumbers) {
-    const firstDigitArr = value.match(withWordsFirstInstance);
-    const lastDigitArr = value.match(withWordsLastInstance);
-    if (firstDigitArr) {
-      if (firstDigitArr[0].length > 1) {
-        firstDigit = replaceWordsWithNumbers(firstDigitArr[0]);
-      } else {
-        firstDigit = firstDigitArr[0];
-      }
+    const digitsArr = value.match(numbersAndWords);
+    if (digitsArr) {
+      firstDigit =
+        digitsArr[1].length > 1
+          ? replaceWordsWithNumbers(digitsArr[1])
+          : digitsArr[1];
+      lastDigit =
+        digitsArr[2].length > 1
+          ? replaceWordsWithNumbers(digitsArr[2])
+          : digitsArr[2];
     }
-    if (lastDigitArr) {
-      if (lastDigitArr[0].length > 1) {
-        lastDigit = replaceWordsWithNumbers(lastDigitArr[0]);
-      } else {
-        lastDigit = lastDigitArr[0];
-      }
-    }
+    // const firstDigitArr = value.match(withWordsFirstInstance);
+    // const lastDigitArr = value.match(withWordsLastInstance);
+    // if (firstDigitArr) {
+    //   if (firstDigitArr[0].length > 1) {
+    //     firstDigit = replaceWordsWithNumbers(firstDigitArr[0]);
+    //     if (firstDigit.length < 1) console.log('LESS');
+    //   } else {
+    //     firstDigit = firstDigitArr[0];
+    //   }
+    // }
+    // if (lastDigitArr) {
+    //   if (lastDigitArr[0].length > 1) {
+    //     lastDigit = replaceWordsWithNumbers(lastDigitArr[0]);
+    //     if (lastDigit.length < 1) console.log('LESS');
+    //   } else {
+    //     lastDigit = lastDigitArr[0];
+    //   }
+    // }
   } else {
     const firstDigitArr = value.match(numbersOnlyFirstInstance);
     const lastDigitArr = value.match(numbersOnlyLastInstance);
     if (firstDigitArr) firstDigit = firstDigitArr[0];
     if (lastDigitArr) lastDigit = lastDigitArr[0];
   }
-
   return parseInt(`${firstDigit}${lastDigit}`, 10);
 };
 
@@ -50,8 +65,6 @@ export const getAnswer = (
   const mappedValues = values.map((value) =>
     getDigits(value, replaceWordsWithNumbers)
   );
-  console.log(values);
-  console.log(mappedValues);
   return calculateTotalValues(mappedValues);
 };
 
