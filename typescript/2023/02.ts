@@ -1,3 +1,4 @@
+import { cp } from 'fs';
 import { parseInput, splitData } from '../helpers';
 
 const data = parseInput(__dirname, 'data/02-input.txt');
@@ -31,6 +32,26 @@ const checkGameValidity = (game: string) => {
   return isValidGame;
 };
 
+const findMinimumCubesPower = (game: string) => {
+  const splitGame = game.trim().split(' ');
+  const minimumCubes = {
+    red: 0,
+    green: 0,
+    blue: 0,
+  };
+
+  for (let i = 0; i < splitGame.length; i += 2) {
+    const color = splitGame[i + 1].replace(/\W/g, '');
+    const value = parseInt(splitGame[i], 10);
+    if (color === 'red' || color === 'green' || color === 'blue') {
+      if (value > minimumCubes[color]) {
+        minimumCubes[color] = value;
+      }
+    }
+  }
+  return minimumCubes.red * minimumCubes.green * minimumCubes.blue;
+};
+
 const getAnswer = () => {
   let answer = 0;
   for (let i = 0; i < games.length; i++) {
@@ -41,4 +62,13 @@ const getAnswer = () => {
   }
   return answer;
 };
-console.log(getAnswer());
+
+const getSecondAnswer = () => {
+  let answer = 0;
+  for (let i = 0; i < games.length; i++) {
+    const [_, game] = separateGameFromId(games[i]);
+    answer += findMinimumCubesPower(game);
+  }
+  return answer;
+};
+console.log(getSecondAnswer());
